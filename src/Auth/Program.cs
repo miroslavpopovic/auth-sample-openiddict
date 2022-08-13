@@ -73,6 +73,7 @@ builder.Services.AddOpenIddict()
         // Enable necessary flows
         options.AllowClientCredentialsFlow();
         options.AllowAuthorizationCodeFlow();
+        options.AllowRefreshTokenFlow();
 
         // Register the signing and encryption credentials.
         // TODO: Use proper certificates for non-development environment
