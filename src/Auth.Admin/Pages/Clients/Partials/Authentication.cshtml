@@ -1,0 +1,60 @@
+﻿@model EditModel
+
+<div class="card mt-3">
+    <h5 class="card-header">Authentication</h5>
+    <div class="card-body">
+        <!--Input - text -->
+        <div class="form-group row">
+            <label asp-for="Client.FrontChannelLogoutUri" class="col-sm-3 col-form-label">
+                Front Channel Logout Uri
+            </label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" asp-for="Client.FrontChannelLogoutUri">
+            </div>
+        </div>
+
+        <!--Checkbox-->
+        <div class="form-group row">
+            <label asp-for="Client.FrontChannelLogoutSessionRequired" class="col-sm-3 col-form-label form-check-label">
+                Front Channel Logout Session Required
+            </label>
+            <div class="col-sm-9">
+                <toggle-button>
+                    <input asp-for="Client.FrontChannelLogoutSessionRequired" type="checkbox" class="form-check-input">
+                </toggle-button>
+            </div>
+        </div>
+
+        <!--Input - text -->
+        <div class="form-group row">
+            <label asp-for="Client.BackChannelLogoutUri" class="col-sm-3 col-form-label">
+                Back Channel Logout Uri
+            </label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" asp-for="Client.BackChannelLogoutUri">
+            </div>
+        </div>
+
+        <!--Checkbox-->
+        <div class="form-group row">
+            <label asp-for="Client.BackChannelLogoutSessionRequired" class="col-sm-3 col-form-label form-check-label">
+                Back Channel Logout Session Required
+            </label>
+            <div class="col-sm-9">
+                <toggle-button>
+                    <input asp-for="Client.BackChannelLogoutSessionRequired" type="checkbox" class="form-check-input">
+                </toggle-button>
+            </div>
+        </div>
+
+        <!--Select with tags-->
+        <div class="form-group row">
+            <label asp-for="Client.PostLogoutRedirectUris" class="col-sm-3 col-form-label">
+                Post Logout Redirect Uris
+            </label>
+            <div class="col-sm-9">
+                <textarea class="form-control" asp-for="Client.PostLogoutRedirectUris"></textarea>
+            </div>
+        </div>
+    </div>
+</div>

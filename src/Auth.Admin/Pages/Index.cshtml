@@ -1,0 +1,33 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<h1 class="display-4">Dashboard</h1>
+<hr/>
+
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                Clients [@Model.ClientCount]
+            </div>
+            <div class="card-body">
+                <a asp-page="/Clients/Index" class="btn btn-outline-primary btn-block"><i class="fas fa-server"></i> Show clients</a>
+                <a asp-page="/Clients/Edit" class="btn btn-outline-primary btn-block"><i class="fas fa-plus"></i> New client</a>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                API scopes [@Model.ApiScopesCount]
+            </div>
+            <div class="card-body">
+                <a asp-page="/ApiScopes/Index" class="btn btn-outline-primary btn-block"><i class="fas fa-cog"></i> Show API scopes</a>
+                <a asp-page="/ApiScopes/Edit" class="btn btn-outline-primary btn-block"><i class="fas fa-plus"></i> New API scope</a>
+            </div>
+        </div>
+    </div>
+</div>

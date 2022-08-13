@@ -1,0 +1,85 @@
+﻿@page "{id:int?}"
+@model Auth.Admin.Pages.ApiScopes.EditModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<form asp-page="/ApiScopes/Edit" method="post" id="api-scope-form">
+    <input type="hidden" asp-for="@Model.ApiScope.Id" />
+
+    <div class="row">
+        <div class="col-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-page="/Index">Home</a></li>
+                    <li class="breadcrumb-item"><a asp-page="/ApiScopes/Index">API scopes</a></li>
+                    @if (Model.Id.HasValue)
+                    {
+                        <li class="breadcrumb-item active" aria-current="page">
+                            Edit @(string.IsNullOrWhiteSpace(Model.ApiScope.DisplayName) ? Model.ApiScope.Name : Model.ApiScope.DisplayName)
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="breadcrumb-item active" aria-current="page">Add new API scope</li>
+                    }
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="card mt-3">
+        <h5 class="card-header">Edit API Scope</h5>
+        <div class="card-body">
+
+            <div class="form-group row">
+                <label asp-for="ApiScope.Name" class="col-sm-3 col-form-label">Name</label>
+                <div class="col-sm-9">
+                    <input type="text" required class="form-control" asp-for="ApiScope.Name">
+                    <span asp-validation-for="ApiScope.Name" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label asp-for="ApiScope.DisplayName" class="col-sm-3 col-form-label">Display Name</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" asp-for="ApiScope.DisplayName">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label asp-for="ApiScope.Description" class="col-sm-3 col-form-label">Description</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" asp-for="ApiScope.Description">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label asp-for="ApiScope.Enabled" class="col-sm-3 col-form-label">Enabled</label>
+                <div class="col-sm-9">
+                    <toggle-button>
+                        <input asp-for="ApiScope.Enabled" type="checkbox">
+                    </toggle-button>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9">
+                    <button type="submit" id="api-scope-save-button" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Save API Scope
+                    </button>
+                    @if (Model.Id != 0)
+                    {
+                        <a class="btn btn-danger" asp-page="/ApiScopes/Delete" asp-route-id="@Model.Id">
+                            <i class="fas fa-trash"></i> Delete API Scope
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>

@@ -1,0 +1,87 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31717.71
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auth", "src\Auth\Auth.csproj", "{997441E3-CBC3-4FBA-905A-47AF3170A995}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Root", "Root", "{E68F8C19-A249-466B-8B26-E876AFAE2498}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		LICENSE = LICENSE
+		README.md = README.md
+		tye.yaml = tye.yaml
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples.WeatherApi", "src\Samples.WeatherApi\Samples.WeatherApi.csproj", "{D22E3658-B7A8-43E8-A6B9-B3D9E896783F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples.WeatherApi.ConsoleClient", "src\Samples.WeatherApi.ConsoleClient\Samples.WeatherApi.ConsoleClient.csproj", "{6C67FC11-D6C4-45DD-A731-FDAB364C442F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples.WeatherApi.WorkerClient", "src\Samples.WeatherApi.WorkerClient\Samples.WeatherApi.WorkerClient.csproj", "{F877C77D-A6AF-4198-986E-B2E1FD45B7AD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples.WeatherApi.MvcClient", "src\Samples.WeatherApi.MvcClient\Samples.WeatherApi.MvcClient.csproj", "{08877702-7C92-4359-AC3C-F7B5001358D9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples.WeatherSummaryApi", "src\Samples.WeatherSummaryApi\Samples.WeatherSummaryApi.csproj", "{96DF48B7-F38B-460C-888A-3F9361E68CA5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples.WeatherApi.JavaScriptBffClient", "src\Samples.WeatherApi.JavaScriptBffClient\Samples.WeatherApi.JavaScriptBffClient.csproj", "{27244AA5-1040-4DF7-B581-8062F07ABD9A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples.WeatherApi.WpfClient", "src\Samples.WeatherApi.WpfClient\Samples.WeatherApi.WpfClient.csproj", "{571EEDA9-3129-4FD4-BA63-60CCFF452854}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auth.Admin", "src\Auth.Admin\Auth.Admin.csproj", "{84F578FD-5EB2-4442-89A5-DC629B9891CA}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{3DF361C5-F024-4C15-881F-61A51D854D76}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{997441E3-CBC3-4FBA-905A-47AF3170A995}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{997441E3-CBC3-4FBA-905A-47AF3170A995}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{997441E3-CBC3-4FBA-905A-47AF3170A995}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{997441E3-CBC3-4FBA-905A-47AF3170A995}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D22E3658-B7A8-43E8-A6B9-B3D9E896783F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D22E3658-B7A8-43E8-A6B9-B3D9E896783F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D22E3658-B7A8-43E8-A6B9-B3D9E896783F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D22E3658-B7A8-43E8-A6B9-B3D9E896783F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C67FC11-D6C4-45DD-A731-FDAB364C442F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C67FC11-D6C4-45DD-A731-FDAB364C442F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C67FC11-D6C4-45DD-A731-FDAB364C442F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C67FC11-D6C4-45DD-A731-FDAB364C442F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F877C77D-A6AF-4198-986E-B2E1FD45B7AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F877C77D-A6AF-4198-986E-B2E1FD45B7AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F877C77D-A6AF-4198-986E-B2E1FD45B7AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F877C77D-A6AF-4198-986E-B2E1FD45B7AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08877702-7C92-4359-AC3C-F7B5001358D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08877702-7C92-4359-AC3C-F7B5001358D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08877702-7C92-4359-AC3C-F7B5001358D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08877702-7C92-4359-AC3C-F7B5001358D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96DF48B7-F38B-460C-888A-3F9361E68CA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96DF48B7-F38B-460C-888A-3F9361E68CA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96DF48B7-F38B-460C-888A-3F9361E68CA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96DF48B7-F38B-460C-888A-3F9361E68CA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27244AA5-1040-4DF7-B581-8062F07ABD9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27244AA5-1040-4DF7-B581-8062F07ABD9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27244AA5-1040-4DF7-B581-8062F07ABD9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27244AA5-1040-4DF7-B581-8062F07ABD9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{571EEDA9-3129-4FD4-BA63-60CCFF452854}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{571EEDA9-3129-4FD4-BA63-60CCFF452854}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{571EEDA9-3129-4FD4-BA63-60CCFF452854}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{571EEDA9-3129-4FD4-BA63-60CCFF452854}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84F578FD-5EB2-4442-89A5-DC629B9891CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84F578FD-5EB2-4442-89A5-DC629B9891CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84F578FD-5EB2-4442-89A5-DC629B9891CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84F578FD-5EB2-4442-89A5-DC629B9891CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DF361C5-F024-4C15-881F-61A51D854D76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DF361C5-F024-4C15-881F-61A51D854D76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DF361C5-F024-4C15-881F-61A51D854D76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DF361C5-F024-4C15-881F-61A51D854D76}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {356F370B-8B25-4991-B002-27F459ADA578}
+	EndGlobalSection
+EndGlobal

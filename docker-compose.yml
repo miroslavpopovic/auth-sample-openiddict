@@ -1,0 +1,67 @@
+version: '3.4'
+
+services:
+  auth-db:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    networks:
+      - overlay
+
+  email:
+    image: mailhog/mailhog
+    networks:
+      - overlay
+
+  auth:
+    image: ${DOCKER_REGISTRY-}auth
+    build:
+      context: .
+      dockerfile: src/Auth/Dockerfile
+    networks:
+        - overlay
+
+  auth-admin:
+    image: ${DOCKER_REGISTRY-}auth-admin
+    build:
+      context: .
+      dockerfile: src/Auth.Admin/Dockerfile
+    networks:
+      - overlay
+
+  auth-sample-weather-api:
+    image: ${DOCKER_REGISTRY-}auth-sample-weather-api
+    build:
+      context: .
+      dockerfile: src/Samples.WeatherApi/Dockerfile
+    networks:
+      - overlay
+
+  auth-sample-weathersummary-api:
+    image: ${DOCKER_REGISTRY-}auth-sample-weathersummary-api
+    build:
+      context: .
+      dockerfile: src/Samples.WeatherSummaryApi/Dockerfile
+    networks:
+      - overlay
+
+  auth-sample-mvc-client:
+    image: ${DOCKER_REGISTRY-}auth-sample-mvc-client
+    build:
+      context: .
+      dockerfile: src/Samples.WeatherApi.MvcClient/Dockerfile
+    networks:
+      - overlay
+
+  auth-sample-javascriptbff-client:
+    image: ${DOCKER_REGISTRY-}auth-sample-javascriptbff-client
+    build:
+      context: .
+      dockerfile: src/Samples.WeatherApi.JavaScriptBffClient/Dockerfile
+    networks:
+      - overlay
+
+volumes:
+  sqlserver:
+    driver: local
+
+networks:
+  overlay:

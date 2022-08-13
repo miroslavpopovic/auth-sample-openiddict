@@ -1,0 +1,110 @@
+﻿@page
+@model Auth.Admin.Pages.Clients.IndexModel
+@{
+    ViewData["Title"] = "Clients";
+}
+
+<div class="row">
+    <div class="col-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-page="/Index">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Clients</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <a asp-page="/Clients/Edit" class="btn btn-outline-primary mb-3"><span class="fas fa-plus"></span> New Client</a>
+    </div>
+    <div class="col">
+        <form asp-page="/Clients/Index" asp-route-search="@Model.Search" method="get">
+            <div class="input-group mb-3">
+                <input type="hidden" name="size" value="@Model.PageSize" />
+                <input type="search" asp-for="Search" class="form-control" placeholder="Search clients..." aria-label="Search clients..." aria-describedby="button-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-primary" type="submit">Search</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Client ID</th>
+                        <th>Client Name</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var client in Model.Clients)
+                    {
+                        <tr>
+                            <td>@client.ClientId</td>
+                            <td>@client.ClientName</td>
+                            <td class="text-right">
+                                <a class="btn btn-outline-primary" asp-page="/Clients/Secrets" asp-route-id="@client.Id" title="Secrets"><i class="fas fa-key"></i></a>
+                                <a class="btn btn-primary" asp-page="/Clients/Edit" asp-route-id="@client.Id" title="Edit"><i class="fas fa-edit"></i></a>
+                                <a class="btn btn-danger" asp-page="/Clients/Delete" asp-route-id="@client.Id" title="Delete"><i class="fas fa-trash"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <nav aria-label="Pagination">
+            <ul class="pagination">
+                @if (Model.CurrentPage > 1)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-page="/Clients/Index" asp-route-p="@(Model.CurrentPage - 1)" asp-route-size="@Model.PageSize" asp-route-search="@Model.Search" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                }
+                @for (var page = 1; page <= Model.TotalPages; page++)
+                {
+                    <li class="page-item @(page == Model.CurrentPage ? "active" : string.Empty)">
+                        <a class="page-link" asp-page="/Clients/Index" asp-route-p="@(page)" asp-route-size="@Model.PageSize" asp-route-search="@Model.Search">@(page)</a>
+                    </li>
+                }
+                @if (Model.CurrentPage < Model.TotalPages)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-page="/Clients/Index" asp-route-p="@(Model.CurrentPage + 1)" asp-route-size="@Model.PageSize" asp-route-search="@Model.Search" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    </div>
+</div>

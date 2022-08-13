@@ -1,0 +1,86 @@
+version: '3.4'
+
+services:
+  auth-db:
+    environment:
+      ACCEPT_EULA: Y
+      SA_PASSWORD: AuthPa$$1    # Note that $ needs to be escaped as $$ - so pass is actually AuthPa$1
+      MSSQL_PID: Developer
+    ports:
+      - "1401:1433"
+    volumes:
+      - sqlserver:/var/opt/mssql
+
+  email:
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    networks:
+      - overlay
+
+  auth:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=password
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+    ports:
+      - "7210:443"
+    volumes:
+      - ~/.aspnet/https:/https:ro
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+
+  auth-admin:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=password
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+    ports:
+      - "7211:443"
+    volumes:
+      - ~/.aspnet/https:/https:ro
+
+  auth-sample-weather-api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=password
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+    ports:
+      - "7212:443"
+    volumes:
+      - ~/.aspnet/https:/https:ro
+
+  auth-sample-weathersummary-api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=password
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+    ports:
+      - "7213:443"
+    volumes:
+      - ~/.aspnet/https:/https:ro
+
+  auth-sample-mvc-client:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=password
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+    ports:
+      - "7214:443"
+    volumes:
+      - ~/.aspnet/https:/https:ro
+
+  auth-sample-javascriptbff-client:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=password
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+    ports:
+      - "7215:443"
+    volumes:
+      - ~/.aspnet/https:/https:ro

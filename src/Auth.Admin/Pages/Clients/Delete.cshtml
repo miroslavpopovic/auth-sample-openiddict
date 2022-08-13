@@ -1,0 +1,53 @@
+﻿@page "{id:int?}"
+@model Auth.Admin.Pages.Clients.DeleteModel
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<div class="row">
+    <div class="col-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-page="/Index">Home</a></li>
+                <li class="breadcrumb-item"><a asp-page="/Clients/Index">Clients</a></li>
+                <li class="breadcrumb-item"><a asp-page="/Clients/Edit" asp-route-id="@Model.Id">@(string.IsNullOrWhiteSpace(Model.ClientName) ? Model.ClientId : Model.ClientName)</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Delete</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<form id="client-form" asp-page="/Clients/Delete" Method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="card mt-3">
+        <h5 class="card-header">@ViewData["Title"]</h5>
+        <div class="card-body">
+            <div class="form-group row">
+                <label asp-for="ClientId" class="col-sm-3 col-form-label">
+                    Client ID
+                </label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" asp-for="ClientId" disabled="disabled" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label asp-for="ClientName" class="col-sm-3 col-form-label">
+                    Client Name
+                </label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" disabled="disabled" asp-for="ClientName" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">
+                </label>
+                <div class="col-sm-9">
+                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i> Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

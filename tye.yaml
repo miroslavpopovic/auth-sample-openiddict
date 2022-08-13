@@ -1,0 +1,77 @@
+# tye application configuration file
+# read all about it at https://github.com/dotnet/tye
+#
+# when you've given us a try, we'd love to know what you think:
+#    https://aka.ms/AA7q20u
+#
+name: auth
+services:
+- name: auth-db
+  image: mcr.microsoft.com/mssql/server:2019-latest
+  volumes:
+  - source: .data/mssql
+    target: /var/opt/mssql/data
+  bindings:
+  - port: 1402
+    containerPort: 1433
+    connectionString: Server=${host},${port};Database=AuthIdentity;User Id=sa;Password=${env:SA_PASSWORD};MultipleActiveResultSets=true;Trust Server Certificate=true;
+  env:
+  - name: ACCEPT_EULA
+    value: Y
+  - name: SA_PASSWORD
+    value: AuthPa$$1 # Note that $ needs to be escaped as $$ - so pass is actually AuthPa$1
+  - name: MSSQL_PID
+    value: Developer
+
+- name: auth
+  project: src/Auth/Auth.csproj
+  bindings:
+  - port: 7210
+    protocol: https
+
+- name: auth-admin
+  project: src/Auth.Admin/Auth.Admin.csproj
+  bindings:
+  - port: 7211
+    protocol: https
+
+- name: weather-api
+  project: src/Samples.WeatherApi/Samples.WeatherApi.csproj
+  bindings:
+  - port: 7212
+    protocol: https
+
+- name: weather-summary-api
+  project: src/Samples.WeatherSummaryApi/Samples.WeatherSummaryApi.csproj
+  bindings:
+  - port: 7213
+    protocol: https
+
+- name: mvc-client
+  project: src/Samples.WeatherApi.MvcClient/Samples.WeatherApi.MvcClient.csproj
+  bindings:
+  - port: 7214
+    protocol: https
+
+- name: javascriptbff-client
+  project: src/Samples.WeatherApi.JavaScriptBffClient/Samples.WeatherApi.JavaScriptBffClient.csproj
+  bindings:
+  - port: 7215
+    protocol: https
+
+- name: email
+  image: mailhog/mailhog
+  bindings:
+  - name: smtp
+    port: 1025
+    protocol: smtp
+    containerPort: 1025
+  - name: panel
+    port: 8025
+    protocol: http
+    containerPort: 8025
+
+#- name: weatherapi-workerclient
+#  project: src/Samples.WeatherApi.WorkerClient/Samples.WeatherApi.WorkerClient.csproj
+#- name: weatherapi-consoleclient
+#  project: src/Samples.WeatherApi.ConsoleClient/Samples.WeatherApi.ConsoleClient.csproj

@@ -1,0 +1,41 @@
+﻿@using Microsoft.AspNetCore.Authentication
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Web client</h1>
+
+	<h2>Claims</h2>
+
+	<dl>
+		@foreach (var claim in User.Claims)
+		{
+			<dt>@claim.Type</dt>
+			<dd>@claim.Value</dd>
+		}
+	</dl>
+
+	<h2>Properties</h2>
+
+	<dl>
+		@foreach (var prop in (await Context.AuthenticateAsync()).Properties!.Items)
+		{
+			<dt>@prop.Key</dt>
+			<dd>
+				@prop.Value
+				
+				@if (prop.Key == ".Token.access_token")
+				{
+					<br/>
+					<a href="https://jwt.io?access_token=@prop.Value" class="btn btn-primary" target="_blank">Decode Token</a>
+				}
+				else if (prop.Key == ".Token.id_token")
+				{
+					<br/>
+					<a href="https://jwt.io?id_token=@prop.Value" class="btn btn-primary" target="_blank">Decode Token</a>
+				}
+			</dd>
+		}
+	</dl>
+</div>

@@ -1,0 +1,42 @@
+﻿@page "{id:int?}"
+@model Auth.Admin.Pages.ApiScopes.DeleteModel
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<div class="row">
+    <div class="col-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-page="/Index">Home</a></li>
+                <li class="breadcrumb-item"><a asp-page="/ApiScopes/Index">Api resources</a></li>
+                <li class="breadcrumb-item"><a asp-page="/ApiScopes/Edit" asp-route-id="@Model.Id">@Model.Name</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Delete</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<form id="client-form" asp-page="/ApiScopes/Delete" Method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="card mt-3">
+        <h5 class="card-header">@ViewData["Title"]</h5>
+        <div class="card-body">
+            <div class="form-group row">
+                <label asp-for="Name" class="col-sm-3 col-form-label">Name</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" asp-for="Name" disabled="disabled" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">
+                </label>
+                <div class="col-sm-9">
+                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i> Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
