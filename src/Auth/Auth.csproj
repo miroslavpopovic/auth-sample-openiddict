@@ -34,49 +34,4 @@
         <PackageReference Include="System.Collections.Immutable" Version="6.0.0" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Data\Migrations" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <_ContentIncludedByDefault Remove="Pages\Consent\Index.cshtml" />
-      <_ContentIncludedByDefault Remove="Pages\Device\Index.cshtml" />
-      <_ContentIncludedByDefault Remove="Pages\Device\Success.cshtml" />
-      <_ContentIncludedByDefault Remove="Pages\Error.cshtml" />
-      <_ContentIncludedByDefault Remove="Pages\Index.cshtml" />
-      <_ContentIncludedByDefault Remove="Pages\Privacy.cshtml" />
-      <_ContentIncludedByDefault Remove="Pages\Shared\Redirect.cshtml" />
-      <_ContentIncludedByDefault Remove="Pages\Shared\_Layout.cshtml" />
-      <_ContentIncludedByDefault Remove="Pages\Shared\_LoginPartial.cshtml" />
-      <_ContentIncludedByDefault Remove="Pages\Shared\_RedirectPartial.cshtml" />
-      <_ContentIncludedByDefault Remove="Pages\Shared\_ScopeListItem.cshtml" />
-      <_ContentIncludedByDefault Remove="Pages\Shared\_StatusMessage.cshtml" />
-      <_ContentIncludedByDefault Remove="Pages\Shared\_ValidationScriptsPartial.cshtml" />
-      <_ContentIncludedByDefault Remove="Pages\Shared\_ValidationSummary.cshtml" />
-      <_ContentIncludedByDefault Remove="Pages\_ViewImports.cshtml" />
-      <_ContentIncludedByDefault Remove="Pages\_ViewStart.cshtml" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Compile Remove="Pages\Consent\**" />
-      <Compile Remove="Pages\Device\**" />
-      <Compile Remove="Extensions\AuthorizationRequestExtensions.cs" />
-      <Compile Remove="Models\ProcessConsentResult.cs" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <EmbeddedResource Remove="Pages\Consent\**" />
-      <EmbeddedResource Remove="Pages\Device\**" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Remove="Pages\Consent\**" />
-      <None Remove="Pages\Device\**" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Content Remove="Pages\Consent\**" />
-      <Content Remove="Pages\Device\**" />
-    </ItemGroup>
-
 </Project>

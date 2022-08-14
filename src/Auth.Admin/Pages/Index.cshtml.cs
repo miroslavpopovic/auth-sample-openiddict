@@ -1,28 +1,29 @@
-﻿using Duende.IdentityServer.EntityFramework.DbContexts;
+﻿using Auth.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using OpenIddict.EntityFrameworkCore.Models;
 
 namespace Auth.Admin.Pages;
 
 public class IndexModel : PageModel
 {
-    private readonly ConfigurationDbContext _dbContext;
+    private readonly ApplicationDbContext _dbContext;
 
-    public IndexModel(ConfigurationDbContext dbContext)
+    public IndexModel(ApplicationDbContext dbContext)
     {
         _dbContext = dbContext;
     }
 
-    public int ClientCount { get; set; }
-    public int ApiScopesCount { get; set; }
+    public int ApplicationCount { get; set; }
+    public int ScopeCount { get; set; }
 
     public async Task<IActionResult> OnGetAsync()
     {
-        ClientCount = await _dbContext.Clients.CountAsync();
-        ApiScopesCount = await _dbContext.ApiScopes.CountAsync();
+        ApplicationCount = await _dbContext.Set<OpenIddictEntityFrameworkCoreApplication>().CountAsync();
+        ScopeCount = await _dbContext.Set<OpenIddictEntityFrameworkCoreScope>().CountAsync();
 
         return Page();
     }

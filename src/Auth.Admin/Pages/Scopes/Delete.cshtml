@@ -1,5 +1,5 @@
-﻿@page "{id:int?}"
-@model Auth.Admin.Pages.ApiScopes.DeleteModel
+﻿@page "{id}"
+@model DeleteModel
 @{
     ViewData["Title"] = "Delete";
 }
@@ -9,15 +9,15 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a asp-page="/Index">Home</a></li>
-                <li class="breadcrumb-item"><a asp-page="/ApiScopes/Index">Api resources</a></li>
-                <li class="breadcrumb-item"><a asp-page="/ApiScopes/Edit" asp-route-id="@Model.Id">@Model.Name</a></li>
+                <li class="breadcrumb-item"><a asp-page="/Scopes/Index">Scopes</a></li>
+                <li class="breadcrumb-item"><a asp-page="/Scopes/Edit" asp-route-id="@Model.Id">@Model.Name</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Delete</li>
             </ol>
         </nav>
     </div>
 </div>
 
-<form id="client-form" asp-page="/ApiScopes/Delete" Method="post">
+<form id="client-form" asp-page="/Scopes/Delete" Method="post">
     <input type="hidden" asp-for="Id" />
 
     <div class="card mt-3">

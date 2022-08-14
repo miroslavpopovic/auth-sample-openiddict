@@ -1,7 +1,8 @@
 ﻿@page
-@model Auth.Admin.Pages.Clients.IndexModel
+@model Auth.Admin.Pages.Applications.IndexModel
+
 @{
-    ViewData["Title"] = "Clients";
+    ViewData["Title"] = "Applications";
 }
 
 <div class="row">
@@ -9,7 +10,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a asp-page="/Index">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Clients</li>
+                <li class="breadcrumb-item active" aria-current="page">Applications</li>
             </ol>
         </nav>
     </div>
@@ -17,13 +18,13 @@
 
 <div class="row">
     <div class="col">
-        <a asp-page="/Clients/Edit" class="btn btn-outline-primary mb-3"><span class="fas fa-plus"></span> New Client</a>
+        <a asp-page="/Applications/Edit" class="btn btn-outline-primary mb-3"><span class="fas fa-plus"></span> New Application</a>
     </div>
     <div class="col">
-        <form asp-page="/Clients/Index" asp-route-search="@Model.Search" method="get">
+        <form asp-page="/Applications/Index" asp-route-search="@Model.Search" method="get">
             <div class="input-group mb-3">
                 <input type="hidden" name="size" value="@Model.PageSize" />
-                <input type="search" asp-for="Search" class="form-control" placeholder="Search clients..." aria-label="Search clients..." aria-describedby="button-addon2">
+                <input type="search" asp-for="Search" class="form-control" placeholder="Search applications..." aria-label="Search applications..." aria-describedby="button-addon2">
                 <div class="input-group-append">
                     <button class="btn btn-outline-primary" type="submit">Search</button>
                 </div>
@@ -39,20 +40,19 @@
                 <thead>
                     <tr>
                         <th>Client ID</th>
-                        <th>Client Name</th>
+                        <th>Display Name</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var client in Model.Clients)
+                    @foreach (var application in Model.Applications)
                     {
                         <tr>
-                            <td>@client.ClientId</td>
-                            <td>@client.ClientName</td>
+                            <td>@application.ClientId</td>
+                            <td>@application.DisplayName</td>
                             <td class="text-right">
-                                <a class="btn btn-outline-primary" asp-page="/Clients/Secrets" asp-route-id="@client.Id" title="Secrets"><i class="fas fa-key"></i></a>
-                                <a class="btn btn-primary" asp-page="/Clients/Edit" asp-route-id="@client.Id" title="Edit"><i class="fas fa-edit"></i></a>
-                                <a class="btn btn-danger" asp-page="/Clients/Delete" asp-route-id="@client.Id" title="Delete"><i class="fas fa-trash"></i></a>
+                                <a class="btn btn-primary" asp-page="/Applications/Edit" asp-route-id="@application.Id" title="Edit"><i class="fas fa-edit"></i></a>
+                                <a class="btn btn-danger" asp-page="/Applications/Delete" asp-route-id="@application.Id" title="Delete"><i class="fas fa-trash"></i></a>
                             </td>
                         </tr>
                     }

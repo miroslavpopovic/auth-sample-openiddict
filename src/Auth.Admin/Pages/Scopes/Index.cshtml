@@ -1,7 +1,7 @@
 ﻿@page
-@model Auth.Admin.Pages.ApiScopes.IndexModel
+@model IndexModel
 @{
-    ViewData["Title"] = "API Scopes";
+    ViewData["Title"] = "Scopes";
 }
 
 <div class="row">
@@ -9,13 +9,13 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a asp-page="/Index">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">API scopes</li>
+                <li class="breadcrumb-item active" aria-current="page">Scopes</li>
             </ol>
         </nav>
     </div>
 
     <div class="col-12">
-        <a asp-page="/ApiScopes/Edit" class="btn btn-outline-primary mb-3"><span class="fas fa-plus"></span> New API Scope</a>
+        <a asp-page="/Scopes/Edit" class="btn btn-outline-primary mb-3"><span class="fas fa-plus"></span> New Scope</a>
     </div>
 </div>
 
@@ -30,13 +30,13 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach (var api in Model.ApiScopes)
+                @foreach (var scope in Model.Scopes)
                 {
                     <tr>
-                        <td>@api.Name</td>
+                        <td>@scope.Name</td>
                         <td class="text-right">
-                            <a class="btn btn-primary" asp-page="/ApiScopes/Edit" asp-route-id="@api.Id"><i class="fas fa-edit"></i></a>
-                            <a class="btn btn-danger" asp-page="/ApiScopes/Delete" asp-route-id="@api.Id"><span class="fas fa-trash"></span></a>
+                            <a class="btn btn-primary" asp-page="/Scopes/Edit" asp-route-id="@scope.Id"><i class="fas fa-edit"></i></a>
+                            <a class="btn btn-danger" asp-page="/Scopes/Delete" asp-route-id="@scope.Id"><span class="fas fa-trash"></span></a>
                         </td>
                     </tr>
                 }

@@ -1,5 +1,5 @@
-﻿@page "{id:int?}"
-@model Auth.Admin.Pages.Clients.DeleteModel
+﻿@page "{id}"
+@model Auth.Admin.Pages.Applications.DeleteModel
 @{
     ViewData["Title"] = "Delete";
 }
@@ -9,15 +9,15 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a asp-page="/Index">Home</a></li>
-                <li class="breadcrumb-item"><a asp-page="/Clients/Index">Clients</a></li>
-                <li class="breadcrumb-item"><a asp-page="/Clients/Edit" asp-route-id="@Model.Id">@(string.IsNullOrWhiteSpace(Model.ClientName) ? Model.ClientId : Model.ClientName)</a></li>
+                <li class="breadcrumb-item"><a asp-page="/Applications/Index">Clients</a></li>
+                <li class="breadcrumb-item"><a asp-page="/Applications/Edit" asp-route-id="@Model.Id">@(string.IsNullOrWhiteSpace(Model.DisplayName) ? Model.ClientId : Model.DisplayName)</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Delete</li>
             </ol>
         </nav>
     </div>
 </div>
 
-<form id="client-form" asp-page="/Clients/Delete" Method="post">
+<form id="client-form" asp-page="/Applications/Delete" Method="post">
     <input type="hidden" asp-for="Id" />
 
     <div class="card mt-3">
@@ -33,11 +33,11 @@
             </div>
 
             <div class="form-group row">
-                <label asp-for="ClientName" class="col-sm-3 col-form-label">
-                    Client Name
+                <label asp-for="DisplayName" class="col-sm-3 col-form-label">
+                    Display Name
                 </label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" disabled="disabled" asp-for="ClientName" />
+                    <input type="text" class="form-control" disabled="disabled" asp-for="DisplayName" />
                 </div>
             </div>
 

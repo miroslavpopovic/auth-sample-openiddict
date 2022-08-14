@@ -1,0 +1,141 @@
+﻿@page "{id?}"
+@model Auth.Admin.Pages.Applications.EditModel
+@{
+    ViewData["Title"] = string.IsNullOrWhiteSpace(Model.Id) ? $"Edit application: {Model.Application.ClientId}" : "Add new application";
+}
+
+<form id="application-form" asp-page="/Applications/Edit" Method="post">
+    <input type="hidden" asp-for="@Model.Application.Id" />
+
+    <div class="row">
+        <div class="col-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-page="/Index">Home</a></li>
+                    <li class="breadcrumb-item"><a asp-page="/Applications/Index">Applications</a></li>
+                    @if (string.IsNullOrWhiteSpace(Model.Id))
+                    {
+                        <li class="breadcrumb-item active" aria-current="page">Edit @(string.IsNullOrWhiteSpace(Model.Application.DisplayName) ? Model.Application.ClientId : Model.Application.DisplayName)</li>
+                    }
+                    else
+                    {
+                        <li class="breadcrumb-item active" aria-current="page">Add new application</li>
+                    }
+                </ol>
+            </nav>
+        </div>
+
+        <div class="col-12">
+            <div asp-validation-summary="All" class="text-danger"></div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="card mt-3">
+                <h5 class="card-header">Basics</h5>
+                <div class="card-body">
+                    <!--Input - text -->
+                    <div class="form-group row">
+                        <label asp-for="Application.ClientId" class="col-sm-3 col-form-label">
+                            Client ID
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" asp-for="Application.ClientId">
+                        </div>
+                    </div>
+
+                    <!--Input - text -->
+                    <div class="form-group row">
+                        <label asp-for="Application.ClientSecret" class="col-sm-3 col-form-label">
+                            Client Secret
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" asp-for="Application.ClientSecret">
+                        </div>
+                    </div>
+
+                    <!--Input - text -->
+                    <div class="form-group row">
+                        <label asp-for="Application.ConsentType" class="col-sm-3 col-form-label">
+                            Consent Type
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" asp-for="Application.ConsentType">
+                        </div>
+                    </div>
+
+                    <!--Input - text -->
+                    <div class="form-group row">
+                        <label asp-for="Application.DisplayName" class="col-sm-3 col-form-label">
+                            Display Name
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" asp-for="Application.DisplayName">
+                        </div>
+                    </div>
+
+                    <!--Input - text -->
+                    <div class="form-group row">
+                        <label asp-for="Application.Permissions" class="col-sm-3 col-form-label">
+                            Permissions (["permission1", "permission2"])
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" asp-for="Application.Permissions">
+                        </div>
+                    </div>
+
+                    <!--Input - text -->
+                    <div class="form-group row">
+                        <label asp-for="Application.PostLogoutRedirectUris" class="col-sm-3 col-form-label">
+                            Post Logout Redirect URIs (["uri1", "uri2"])
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" asp-for="Application.PostLogoutRedirectUris">
+                        </div>
+                    </div>
+
+                    <!--Input - text -->
+                    <div class="form-group row">
+                        <label asp-for="Application.RedirectUris" class="col-sm-3 col-form-label">
+                            Redirect URIs (["uri1", "uri2"])
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" asp-for="Application.RedirectUris">
+                        </div>
+                    </div>
+
+                    <!--Input - text -->
+                    <div class="form-group row">
+                        <label asp-for="Application.Requirements" class="col-sm-3 col-form-label">
+                            Requirements (["req1", "req2"])
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" asp-for="Application.Requirements">
+                        </div>
+                    </div>
+
+                    <!--Input - text -->
+                    <div class="form-group row">
+                        <label asp-for="Application.Type" class="col-sm-3 col-form-label">
+                            Type (public or confidental)
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" asp-for="Application.Type">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <button class="btn btn-primary"><i class="fas fa-save"></i> Save</button>
+
+            @if (!string.IsNullOrWhiteSpace(Model.Id))
+            {
+                <a asp-page="/Applications/Delete" asp-route-id="@Model.Id" class="btn btn-danger"><i class="fas fa-trash"></i> Delete</a>
+            }
+        </div>
+    </div>
+
+</form>

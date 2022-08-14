@@ -1,0 +1,76 @@
+﻿@page "{id?}"
+@model EditModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<form asp-page="/Scopes/Edit" method="post" id="api-scope-form">
+    <input type="hidden" asp-for="@Model.Scope.Id" />
+
+    <div class="row">
+        <div class="col-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-page="/Index">Home</a></li>
+                    <li class="breadcrumb-item"><a asp-page="/ApiScopes/Index">Scopes</a></li>
+                    @if (string.IsNullOrWhiteSpace(Model.Id))
+                    {
+                        <li class="breadcrumb-item active" aria-current="page">
+                            Edit @(string.IsNullOrWhiteSpace(Model.Scope.DisplayName) ? Model.Scope.Name : Model.Scope.DisplayName)
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="breadcrumb-item active" aria-current="page">Add new scope</li>
+                    }
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="card mt-3">
+        <h5 class="card-header">Edit Scope</h5>
+        <div class="card-body">
+
+            <div class="form-group row">
+                <label asp-for="Scope.Name" class="col-sm-3 col-form-label">Name</label>
+                <div class="col-sm-9">
+                    <input type="text" required class="form-control" asp-for="Scope.Name">
+                    <span asp-validation-for="Scope.Name" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label asp-for="Scope.DisplayName" class="col-sm-3 col-form-label">Display Name</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" asp-for="Scope.DisplayName">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label asp-for="Scope.Description" class="col-sm-3 col-form-label">Description</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" asp-for="Scope.Description">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9">
+                    <button type="submit" id="scope-save-button" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Save Scope
+                    </button>
+                    @if (!string.IsNullOrWhiteSpace(Model.Id))
+                    {
+                        <a class="btn btn-danger" asp-page="/Scopes/Delete" asp-route-id="@Model.Id">
+                            <i class="fas fa-trash"></i> Delete Scope
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>

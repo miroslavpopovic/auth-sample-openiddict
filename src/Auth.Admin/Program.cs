@@ -1,10 +1,9 @@
-using Duende.IdentityServer.EntityFramework.DbContexts;
-using Duende.IdentityServer.EntityFramework.Storage;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Logging;
 using System.IdentityModel.Tokens.Jwt;
+using Auth.Data;
+using Microsoft.EntityFrameworkCore;
 
 JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
 IdentityModelEventSource.ShowPII = true;
@@ -12,9 +11,22 @@ IdentityModelEventSource.ShowPII = true;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddConfigurationDbContext<ConfigurationDbContext>(
-    options => options.ConfigureDbContext = b =>
-        b.UseSqlServer(builder.Configuration.GetConnectionString("auth-db")));
+var connectionString = builder.Configuration.GetConnectionString("auth-db");
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+{
+    options.UseSqlServer(connectionString);
+    options.UseOpenIddict();
+});
+
+// builder.Services.AddOpenIddict()
+//     // Register the OpenIddict core components.
+//     .AddCore(options =>
+//     {
+//         // Configure OpenIddict to use the Entity Framework Core stores and models.
+//         // Note: call ReplaceDefaultEntities() to replace the default OpenIddict entities.
+//         options.UseEntityFrameworkCore()
+//             .UseDbContext<ApplicationDbContext>();
+//     });
 
 builder.Services.AddAuthentication(options =>
     {
@@ -29,6 +41,7 @@ builder.Services.AddAuthentication(options =>
         options.ClientId = "auth-admin-client";
         options.ClientSecret = "secret";
         options.ResponseType = "code";
+        options.DisableTelemetry = true;
 
         options.BackchannelHttpHandler = new HttpClientHandler
         {

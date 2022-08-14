@@ -21,7 +21,7 @@ public class DatabaseSeedWorker : IHostedService
 
     public async Task StartAsync(CancellationToken cancellationToken)
     {
-        //var authAdminUrl = _configuration.GetServiceUri("auth-admin")!.ToString();
+        var authAdminUrl = _configuration.GetServiceUri("auth-admin")!.ToString();
         var bffClientUrl = _configuration.GetServiceUri("javascriptbff-client")!.ToString();
         var mvcClientUrl = _configuration.GetServiceUri("mvc-client")!.ToString();
 
@@ -33,21 +33,21 @@ public class DatabaseSeedWorker : IHostedService
         var applicationManager = scope.ServiceProvider.GetRequiredService<IOpenIddictApplicationManager>();
         var scopeManager = scope.ServiceProvider.GetRequiredService<IOpenIddictScopeManager>();
 
-        if (await scopeManager.FindByNameAsync(WeatherApiScope, cancellationToken) == null)
+        if (await scopeManager.FindByNameAsync("weather-api", cancellationToken) == null)
         {
             await scopeManager.CreateAsync(new OpenIddictScopeDescriptor
             {
-                Name = WeatherApiScope,
+                Name = "weather-api",
                 Description = "Weather API resource",
                 DisplayName = "Weather API"
             }, cancellationToken);
         }
 
-        if (await scopeManager.FindByNameAsync(WeatherSummaryApiScope, cancellationToken) == null)
+        if (await scopeManager.FindByNameAsync("weather-summary-api", cancellationToken) == null)
         {
             await scopeManager.CreateAsync(new OpenIddictScopeDescriptor
             {
-                Name = WeatherSummaryApiScope,
+                Name = "weather-summary-api",
                 Description = "Weather Summary API resource",
                 DisplayName = "Weather Summary API"
             }, cancellationToken);
@@ -220,42 +220,42 @@ public class DatabaseSeedWorker : IHostedService
             }, cancellationToken);
         }
 
-        // clientId = "auth-admin-client";
-        // if (await manager.FindByClientIdAsync(clientId, cancellationToken) == null)
-        // {
-        //     await manager.CreateAsync(new OpenIddictApplicationDescriptor
-        //     {
-        //         ClientId = clientId,
-        //         ClientSecret = "secret",
-        //         ConsentType = ConsentTypes.Explicit,
-        //         DisplayName = "Auth Admin application",
-        //         RedirectUris =
-        //         {
-        //             new Uri($"{authAdminUrl}signin-oidc")
-        //         },
-        //         PostLogoutRedirectUris =
-        //         {
-        //             new Uri($"{authAdminUrl}signout-callback-oidc")
-        //         },
-        //         Permissions =
-        //         {
-        //             Permissions.Endpoints.Authorization,
-        //             Permissions.Endpoints.Token,
-        //             Permissions.GrantTypes.AuthorizationCode,
-        //             Permissions.GrantTypes.RefreshToken,
-        //             Permissions.ResponseTypes.Code,
-        //             Scopes.OpenId,
-        //             Scopes.OfflineAccess,
-        //             Permissions.Scopes.Email,
-        //             Permissions.Scopes.Profile,
-        //             Permissions.Scopes.Roles
-        //         },
-        //         Requirements =
-        //         {
-        //             Requirements.Features.ProofKeyForCodeExchange
-        //         }
-        //     }, cancellationToken);
-        // }
+        clientId = "auth-admin-client";
+        if (await applicationManager.FindByClientIdAsync(clientId, cancellationToken) == null)
+        {
+            await applicationManager.CreateAsync(new OpenIddictApplicationDescriptor
+            {
+                ClientId = clientId,
+                ClientSecret = "secret",
+                ConsentType = ConsentTypes.Explicit,
+                DisplayName = "Auth Admin application",
+                RedirectUris =
+                {
+                    new Uri($"{authAdminUrl}signin-oidc")
+                },
+                PostLogoutRedirectUris =
+                {
+                    new Uri($"{authAdminUrl}signout-callback-oidc")
+                },
+                Permissions =
+                {
+                    Permissions.Endpoints.Authorization,
+                    Permissions.Endpoints.Token,
+                    Permissions.GrantTypes.AuthorizationCode,
+                    Permissions.GrantTypes.RefreshToken,
+                    Permissions.ResponseTypes.Code,
+                    Scopes.OpenId,
+                    Scopes.OfflineAccess,
+                    Permissions.Scopes.Email,
+                    Permissions.Scopes.Profile,
+                    Permissions.Scopes.Roles
+                },
+                Requirements =
+                {
+                    Requirements.Features.ProofKeyForCodeExchange
+                }
+            }, cancellationToken);
+        }
     }
 
     public Task StopAsync(CancellationToken cancellationToken) => Task.CompletedTask;
