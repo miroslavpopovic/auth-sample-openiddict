@@ -22,7 +22,7 @@ public class DatabaseSeedWorker : IHostedService
     public async Task StartAsync(CancellationToken cancellationToken)
     {
         //var authAdminUrl = _configuration.GetServiceUri("auth-admin")!.ToString();
-        //var bffClientUrl = _configuration.GetServiceUri("javascriptbff-client")!.ToString();
+        var bffClientUrl = _configuration.GetServiceUri("javascriptbff-client")!.ToString();
         var mvcClientUrl = _configuration.GetServiceUri("mvc-client")!.ToString();
 
         await using var scope = _serviceProvider.CreateAsyncScope();
@@ -161,38 +161,38 @@ public class DatabaseSeedWorker : IHostedService
             }, cancellationToken);
         }
 
-        // clientId = "bff-client";
-        // if (await manager.FindByClientIdAsync(clientId, cancellationToken) == null)
-        // {
-        //     await manager.CreateAsync(new OpenIddictApplicationDescriptor
-        //     {
-        //         ClientId = clientId,
-        //         ClientSecret = "secret",
-        //         DisplayName = "BFF client",
-        //         RedirectUris =
-        //         {
-        //             new Uri($"{bffClientUrl}signin-oidc")
-        //         },
-        //         PostLogoutRedirectUris =
-        //         {
-        //             new Uri($"{bffClientUrl}signout-callback-oidc")
-        //         },
-        //         Permissions =
-        //         {
-        //             Permissions.Endpoints.Authorization,
-        //             Permissions.Endpoints.Token,
-        //             Permissions.GrantTypes.AuthorizationCode,
-        //             Permissions.GrantTypes.RefreshToken,
-        //             Permissions.ResponseTypes.Code,
-        //             Scopes.OpenId,
-        //             Scopes.OfflineAccess,
-        //             Permissions.Scopes.Email,
-        //             Permissions.Scopes.Profile,
-        //             Permissions.Scopes.Roles,
-        //             WeatherApiScope
-        //         }
-        //     }, cancellationToken);
-        // }
+        clientId = "bff-client";
+        if (await applicationManager.FindByClientIdAsync(clientId, cancellationToken) == null)
+        {
+            await applicationManager.CreateAsync(new OpenIddictApplicationDescriptor
+            {
+                ClientId = clientId,
+                ClientSecret = "secret",
+                DisplayName = "BFF client",
+                RedirectUris =
+                {
+                    new Uri($"{bffClientUrl}signin-oidc")
+                },
+                PostLogoutRedirectUris =
+                {
+                    new Uri($"{bffClientUrl}signout-callback-oidc")
+                },
+                Permissions =
+                {
+                    Permissions.Endpoints.Authorization,
+                    Permissions.Endpoints.Token,
+                    Permissions.GrantTypes.AuthorizationCode,
+                    Permissions.GrantTypes.RefreshToken,
+                    Permissions.ResponseTypes.Code,
+                    Scopes.OpenId,
+                    Scopes.OfflineAccess,
+                    Permissions.Scopes.Email,
+                    Permissions.Scopes.Profile,
+                    Permissions.Scopes.Roles,
+                    WeatherApiScope
+                }
+            }, cancellationToken);
+        }
 
         clientId = "wpf-client";
         if (await applicationManager.FindByClientIdAsync(clientId, cancellationToken) == null)

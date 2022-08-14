@@ -6,6 +6,10 @@ As everyone is not able to fulfill the [pricing](https://duendesoftware.com/prod
 
 [IdentityModel](https://github.com/IdentityModel/IdentityModel) is used for discovery, token validation, access token management, etc. Alternatively, [OpenIddict client](https://kevinchalet.com/2022/02/25/introducing-the-openiddict-client/) could be used instead, once it is released.
 
+Note that the JavaScriptBffClient sample is using [Duende.Bff]() library, so it is a kind of a cheat. There is no alternative utility available for OpenIddict. However, you can check out [this sample](https://github.com/damienbod/AspNetCoreOpeniddict) by Damien Bowden that includes Blazor BFF setup using OpenIddict and [Yarp](https://microsoft.github.io/reverse-proxy/).
+
+For any other type of samples, check out official [OpenIddict samples repository](https://github.com/openiddict/openiddict-samples).
+
 ## Projects
 
 ### Auth
