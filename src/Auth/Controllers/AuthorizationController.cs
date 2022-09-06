@@ -151,6 +151,12 @@ public class AuthorizationController : Controller
                                         type: AuthorizationTypes.Permanent,
                                         scopes: principal.GetScopes());
 
+                //add the sub claim to use sub as the name identifier claim
+                if (string.IsNullOrEmpty(principal.FindFirstValue(Claims.Subject)))
+                {
+                    principal.SetClaim(Claims.Subject, user.Id);
+                }
+
                 principal.SetAuthorizationId(await _authorizationManager.GetIdAsync(authorization));
 
                 foreach (var claim in principal.Claims)
@@ -308,6 +314,16 @@ public class AuthorizationController : Controller
                 await _applicationManager.FindByClientIdAsync(result.Principal.GetClaim(Claims.ClientId)!) ??
                 throw new InvalidOperationException(
                     "Details concerning the calling client application cannot be found.");
+
+            // Retrieve the profile of the logged in user.
+            var user = await _userManager.GetUserAsync(User) ?? throw new InvalidOperationException("The user details cannot be retrieved.");
+            
+            var principal = await _signInManager.CreateUserPrincipalAsync(user);
+            //add the sub claim to use sub as the name identifier claim
+            if (string.IsNullOrEmpty(principal.FindFirstValue(Claims.Subject)))
+            {
+                principal.SetClaim(Claims.Subject, user.Id);
+            }
 
             // Render a form asking the user to confirm the authorization demand.
             return View(new VerifyViewModel
