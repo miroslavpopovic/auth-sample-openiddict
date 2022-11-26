@@ -114,8 +114,8 @@ builder.Services.AddAuthentication()
         // We are leaving the default auth scheme
         //options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
 
-        options.ClientId = builder.Configuration["Providers:Google:ClientId"];
-        options.ClientSecret = builder.Configuration["Providers:Google:ClientSecret"];
+        options.ClientId = builder.Configuration["Providers:Google:ClientId"]!;
+        options.ClientSecret = builder.Configuration["Providers:Google:ClientSecret"]!;
     });
 
 // CORS policy to allow SwaggerUI client

@@ -73,7 +73,7 @@ namespace Auth.Areas.Identity.Pages.Account.Manage
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
 
-            Username = userName;
+            Username = userName!;
             ProfileImageName = user.ProfileImageName;
 
             Input = new InputModel
@@ -110,7 +110,7 @@ namespace Auth.Areas.Identity.Pages.Account.Manage
 
             if (Input.ProfileImage != null)
             {
-                var fileName = await SaveProfileImage(Input.ProfileImage, user.UserName);
+                var fileName = await SaveProfileImage(Input.ProfileImage, user.UserName!);
 
                 user.ProfileImageName = fileName;
                 await _userManager.UpdateAsync(user);
@@ -134,7 +134,7 @@ namespace Auth.Areas.Identity.Pages.Account.Manage
 
         private async Task<string> SaveProfileImage(IFormFile profileImage, string userName)
         {
-            var directory = Path.Combine(_webHostEnvironment.WebRootPath, _configuration["Paths:ProfileImages"]);
+            var directory = Path.Combine(_webHostEnvironment.WebRootPath, _configuration["Paths:ProfileImages"]!);
             var fileName = $"{userName}{Path.GetExtension(profileImage.FileName)}";
             var filePath = Path.Combine(directory, fileName);
 

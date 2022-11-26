@@ -5,13 +5,14 @@
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
-		var authUser = await UserManager.FindByNameAsync(User.Identity!.Name);
+		var authUser = await UserManager.FindByNameAsync(User.Identity!.Name!);
 
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
-            @if (!string.IsNullOrWhiteSpace(authUser.ProfileImageName))
+            @if (!string.IsNullOrWhiteSpace(authUser!.ProfileImageName))
             {
-                <img src="~/@Configuration["Paths:ProfileImages"]/@authUser.ProfileImageName" class="img-thumbnail"/>
+                <img src="~/@Configuration["Paths:ProfileImages"]/@authUser.ProfileImageName"
+                     class="img-thumbnail" alt="@User.Identity!.Name!" />
             }
             else
             {

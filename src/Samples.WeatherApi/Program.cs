@@ -82,10 +82,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllers()
-        .RequireAuthorization("ApiScope");
-});
+app.MapControllers()
+    .RequireAuthorization("ApiScope");
 
 app.Run();

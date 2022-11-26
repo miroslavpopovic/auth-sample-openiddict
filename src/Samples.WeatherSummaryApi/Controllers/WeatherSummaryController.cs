@@ -23,12 +23,12 @@ public class WeatherSummaryController : ControllerBase
 
         var authorizationHeader = HttpContext.Request.Headers["Authorization"];
 
-        if (authorizationHeader.Count == 0)
+        if (authorizationHeader.Count == 0 || authorizationHeader[0] == null)
         {
             return Unauthorized();
         }
 
-        var accessToken = authorizationHeader[0].Replace("Bearer ", string.Empty);
+        var accessToken = authorizationHeader[0]!.Replace("Bearer ", string.Empty);
 
         _client.DefaultRequestHeaders.Authorization =
             new AuthenticationHeaderValue("Bearer", accessToken);

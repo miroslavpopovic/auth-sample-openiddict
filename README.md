@@ -1,6 +1,6 @@
 # Auth microservice sample with OpenIddict
 
-This is an alternative implementation of [auth microservice sample](https://github.com/miroslavpopovic/auth-microservice-sample-dotnet6) using OpenIddict instead of Duende Identity Server. This sample is written in .NET 6, using C# 10 and the latest OpenIddict.
+This is an alternative implementation of [auth microservice sample](https://github.com/miroslavpopovic/auth-microservice-sample-dotnet7) using OpenIddict instead of Duende Identity Server. This sample is written in .NET 7, using C# 11 and the latest OpenIddict.
 
 As everyone is not able to fulfill the [pricing](https://duendesoftware.com/products/identityserver#pricing) or licensing requirements of Duende Identity Server (or do not want to), this sample gives an alternative by using [OpenIddict](https://github.com/openiddict/openiddict-core) instead of Duende IdentityServer.
 
@@ -48,7 +48,7 @@ An ASP.NET Core application which demonstrates several different ways of using a
 
 *TODO:* See if this can be easily rewritten to use OpenIddict, or simply point to https://github.com/damienbod/AspNetCoreOpeniddict.
 
-A combination of ASP.NET Core backend and JavaScript frontend app demonstrating usage of [BFF Security Framework](https://docs.duendesoftware.com/identityserver/v5/bff/). Note that this approach is [recommended for browser based apps](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-browser-based-apps). Another approach would be to do all the security interactions on client-side code, which ends in more complex JavaScript and considerably higher attach surface. It is discouraged for applications dealing with sensitive data. Read more about it in [Duende IdentityServer documentation](https://docs.duendesoftware.com/identityserver/v5/quickstarts/js_clients/).
+A combination of ASP.NET Core backend and JavaScript frontend app demonstrating usage of [BFF Security Framework](https://docs.duendesoftware.com/identityserver/v6/bff/). Note that this approach is [recommended for browser based apps](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-browser-based-apps). Another approach would be to do all the security interactions on client-side code, which ends in more complex JavaScript and considerably higher attach surface. It is discouraged for applications dealing with sensitive data. Read more about it in [Duende IdentityServer documentation](https://docs.duendesoftware.com/identityserver/v6/quickstarts/js_clients/).
 
 ### WpfClient
 
@@ -56,7 +56,7 @@ A .NET Core WPF application demonstrating another usage of IdentityModel, as wel
 
 ## Preparing
 
-This solution requires .NET 6.0 SDK or higher.
+This solution requires .NET 7.0 SDK or higher.
 
 ### Database connection strings
 

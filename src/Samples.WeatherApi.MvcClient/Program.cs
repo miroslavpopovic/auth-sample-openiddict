@@ -120,10 +120,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapDefaultControllerRoute()
-        .RequireAuthorization();
-});
+app.MapDefaultControllerRoute()
+    .RequireAuthorization();
 
 app.Run();

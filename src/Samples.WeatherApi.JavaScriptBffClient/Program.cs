@@ -3,6 +3,8 @@ using Duende.Bff.Yarp;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using System.IdentityModel.Tokens.Jwt;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Samples.WeatherApi.JavaScriptBffClient;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,8 @@ builder.Services.AddAuthorization();
 
 builder.Services.AddBff()
     .AddRemoteApis();
+// HACK: Allow self-signed certificates for the remote API server
+builder.Services.Replace(ServiceDescriptor.Transient<IHttpMessageInvokerFactory, DangerousHttpMessageInvokerFactory>());
 
 JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
 
@@ -62,16 +66,13 @@ app.UseAuthentication();
 app.UseBff();
 app.UseAuthorization();
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapRazorPages();
-    endpoints.MapControllers();
+app.MapRazorPages();
+app.MapControllers();
 
-    endpoints.MapBffManagementEndpoints();
+app.MapBffManagementEndpoints();
 
-    endpoints.MapRemoteBffApiEndpoint(
-            "/remote", builder.Configuration.GetServiceUri("weather-api")!.ToString().TrimEnd('/'))
-        .RequireAccessToken(TokenType.User);
-});
+app.MapRemoteBffApiEndpoint(
+        "/remote", builder.Configuration.GetServiceUri("weather-api")!.ToString().TrimEnd('/'))
+    .RequireAccessToken();
 
 app.Run();
