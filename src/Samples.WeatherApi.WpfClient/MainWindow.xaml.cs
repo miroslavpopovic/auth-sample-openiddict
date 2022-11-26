@@ -20,7 +20,7 @@ public partial class MainWindow : Window
 
     private async void OnCallWeatherApiClick(object sender, RoutedEventArgs e)
     {
-        var apiClient = new HttpClient();
+        var apiClient = DangerousHttpClientFactory.Create();
 
         if (!string.IsNullOrWhiteSpace(_accessToken))
         {

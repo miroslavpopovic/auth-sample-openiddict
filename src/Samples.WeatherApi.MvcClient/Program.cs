@@ -1,14 +1,18 @@
-using IdentityModel.Client;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Polly;
 using System.IdentityModel.Tokens.Jwt;
+using Duende.AccessTokenManagement;
+using Samples.WeatherApi.MvcClient;
 
 var builder = WebApplication.CreateBuilder(args);
 
 JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
 
-builder.Services.AddAuthentication(options =>
+builder.Services.AddDistributedMemoryCache();
+
+builder.Services
+    .AddAuthentication(options =>
     {
         options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
         options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
@@ -39,65 +43,38 @@ builder.Services.AddAuthentication(options =>
 
 // Register and configure Token Management and Weather API HTTP clients for DI
 // This is using a separate Client to access API using Client Credentials
-// TODO: Replace this with Duende.AccessTokenManagement once it's out of the preview phase
-// https://blog.duendesoftware.com/posts/20220804_datm/
 builder.Services
-    .AddAccessTokenManagement(
-        options =>
-        {
-            options.Client.Clients.Add(
-                "auth", new ClientCredentialsTokenRequest
-                {
-                    Address = $"{builder.Configuration.GetServiceUri("auth")}connect/token",
-                    ClientId = "weather-apis-client",
-                    ClientSecret = "secret",
-                    Scope = "weather-api"
-                });
-        })
-    .ConfigureBackchannelHttpClient()
-    .ConfigurePrimaryHttpMessageHandler(
-        () => new HttpClientHandler
-        {
-            ServerCertificateCustomValidationCallback =
-                HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
-        })
+    .AddClientCredentialsTokenManagement()
+    .AddClient("auth", options =>
+    {
+        options.TokenEndpoint = $"{builder.Configuration.GetServiceUri("auth")}connect/token";
+        options.ClientId = "weather-apis-client";
+        options.ClientSecret = "secret";
+        options.Scope = "weather-api";
+    });
+builder.Services
+    .AddHttpClient(ClientCredentialsTokenManagementDefaults.BackChannelHttpClientName)
+    .AcceptAnyServerCertificate()
     .AddTransientHttpErrorPolicy(
-        policy =>
-            policy.WaitAndRetryAsync(
-                new[]
-                {
-                    TimeSpan.FromSeconds(1),
-                    TimeSpan.FromSeconds(2),
-                    TimeSpan.FromSeconds(3)
-                }));
+        policy => policy.WaitAndRetryAsync(
+            new[]
+            {
+                TimeSpan.FromSeconds(1),
+                TimeSpan.FromSeconds(2),
+                TimeSpan.FromSeconds(3)
+            }));
+
+builder.Services.AddOpenIdConnectAccessTokenManagement();
 
 builder.Services
-    .AddClientAccessTokenHttpClient(
-        "weather-api-client",
-        configureClient: client =>
-        {
-            client.BaseAddress = new Uri(builder.Configuration.GetServiceUri("weather-api")!.ToString());
-        })
-    .ConfigurePrimaryHttpMessageHandler(
-        () => new HttpClientHandler
-        {
-            ServerCertificateCustomValidationCallback =
-                HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
-        });
+    .AddClientCredentialsHttpClient("weather-api-client", "auth", configureClient:
+        client => client.BaseAddress = new Uri(builder.Configuration.GetServiceUri("weather-api")!.ToString()))
+    .AcceptAnyServerCertificate();
 
 builder.Services
-    .AddClientAccessTokenHttpClient(
-        "weather-summary-api-client",
-        configureClient: client =>
-        {
-            client.BaseAddress = new Uri(builder.Configuration.GetServiceUri("weather-summary-api")!.ToString());
-        })
-    .ConfigurePrimaryHttpMessageHandler(
-        () => new HttpClientHandler
-        {
-            ServerCertificateCustomValidationCallback =
-                HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
-        });
+    .AddClientCredentialsHttpClient("weather-summary-api-client", "auth",
+        client => client.BaseAddress = new Uri(builder.Configuration.GetServiceUri("weather-summary-api")!.ToString()))
+    .AcceptAnyServerCertificate();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

@@ -18,16 +18,16 @@ public class Worker : BackgroundService
     {
         while (!stoppingToken.IsCancellationRequested)
         {
-            _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+            _logger.LogInformation("Worker running at: {Time}", DateTimeOffset.Now);
 
             var stringResponse = await _regularHttpClient.GetStringAsync("weatherforecast", stoppingToken);
-            _logger.LogInformation("Weather API response using regular HTTP client:\n{response}", stringResponse);
+            _logger.LogInformation("Weather API response using regular HTTP client:\n{Response}", stringResponse);
 
             var weatherForecasts =
                 (await _weatherForecastClient.GetWeatherForecastAsync()).ToArray();
 
             _logger.LogInformation(
-                "Downloaded {length} forecasts; max temp: {maxTemp}, min temp: {minTemp}",
+                "Downloaded {Length} forecasts; max temp: {MaxTemp}, min temp: {MinTemp}",
                 weatherForecasts.Length,
                 weatherForecasts.Max(x => x.TemperatureC),
                 weatherForecasts.Min(x => x.TemperatureC));

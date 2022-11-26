@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Samples.WeatherSummaryApi;
 using Samples.WeatherSummaryApi.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -38,16 +39,8 @@ builder.Services.AddAuthorization(options =>
 builder.Services
     .AddHttpClient(
         "weather-api-client",
-        client =>
-        {
-            client.BaseAddress = new Uri($"{builder.Configuration.GetServiceUri("weather-api")}weatherforecast");
-        })
-    .ConfigurePrimaryHttpMessageHandler(
-        () => new HttpClientHandler
-        {
-            ServerCertificateCustomValidationCallback =
-                HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
-        });
+        client => client.BaseAddress = new Uri($"{builder.Configuration.GetServiceUri("weather-api")}weatherforecast"))
+    .AcceptAnyServerCertificate();
 
 var app = builder.Build();
 

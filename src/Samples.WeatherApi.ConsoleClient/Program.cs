@@ -2,8 +2,9 @@
 
 using IdentityModel.Client;
 using System.Text.Json;
+using Samples.WeatherApi.ConsoleClient;
 
-var client = new HttpClient();
+var client = DangerousHttpClientFactory.Create();
 
 var disco = await client.GetDiscoveryDocumentAsync("https://localhost:7210");
 if (disco.IsError)
@@ -32,7 +33,7 @@ Console.WriteLine(tokenResponse.Json);
 Console.WriteLine("\n\n");
 
 // call api
-var apiClient = new HttpClient();
+var apiClient = DangerousHttpClientFactory.Create();
 apiClient.SetBearerToken(tokenResponse.AccessToken);
 
 var response = await apiClient.GetAsync("https://localhost:7212/weatherforecast");
