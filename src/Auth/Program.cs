@@ -60,12 +60,12 @@ builder.Services.AddOpenIddict()
     {
         // Enable the authorization, logout, token and userinfo endpoints.
         options
-            .SetAuthorizationEndpointUris("/connect/authorize")
-            .SetDeviceEndpointUris("/connect/device")
-            .SetVerificationEndpointUris("/connect/verify")
-            .SetLogoutEndpointUris("/connect/logout")
-            .SetTokenEndpointUris("/connect/token")
-            .SetUserinfoEndpointUris("/connect/userinfo");
+            .SetAuthorizationEndpointUris("connect/authorize")
+            .SetDeviceEndpointUris("connect/device")
+            .SetVerificationEndpointUris("connect/verify")
+            .SetLogoutEndpointUris("connect/logout")
+            .SetTokenEndpointUris("connect/token")
+            .SetUserinfoEndpointUris("connect/userinfo");
 
         // Mark the "email", "profile" and "roles" scopes as supported scopes.
         options.RegisterScopes(Scopes.Email, Scopes.Profile, Scopes.Roles);

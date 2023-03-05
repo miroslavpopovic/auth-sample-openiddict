@@ -317,7 +317,7 @@ public class AuthorizationController : Controller
 
             // Retrieve the profile of the logged in user.
             var user = await _userManager.GetUserAsync(User) ?? throw new InvalidOperationException("The user details cannot be retrieved.");
-            
+
             var principal = await _signInManager.CreateUserPrincipalAsync(user);
             //add the sub claim to use sub as the name identifier claim
             if (string.IsNullOrEmpty(principal.FindFirstValue(Claims.Subject)))
@@ -421,27 +421,28 @@ public class AuthorizationController : Controller
 
             // Create the claims-based identity that will be used by OpenIddict to generate tokens.
             var identity = new ClaimsIdentity(
-                TokenValidationParameters.DefaultAuthenticationType, Claims.Name, Claims.Role);
+                authenticationType: TokenValidationParameters.DefaultAuthenticationType,
+                nameType: Claims.Name,
+                roleType: Claims.Role);
 
             // Add the claims that will be persisted in the tokens (use the client_id as the subject identifier).
-            identity.AddClaim(
-                Claims.Subject, (await _applicationManager.GetClientIdAsync(application))!,
-                Destinations.AccessToken, Destinations.IdentityToken);
-            identity.AddClaim(
-                Claims.Name, (await _applicationManager.GetDisplayNameAsync(application))!,
-                Destinations.AccessToken, Destinations.IdentityToken);
+            identity.SetClaim(Claims.Subject, await _applicationManager.GetClientIdAsync(application));
+            identity.SetClaim(Claims.Name, await _applicationManager.GetDisplayNameAsync(application));
+
+            // Note: In the original OAuth 2.0 specification, the client credentials grant
+            // doesn't return an identity token, which is an OpenID Connect concept.
+            //
+            // As a non-standardized extension, OpenIddict allows returning an id_token
+            // to convey information about the client application when the "openid" scope
+            // is granted (i.e specified when calling principal.SetScopes()). When the "openid"
+            // scope is not explicitly set, no identity token is returned to the client application.
 
             // Set the list of scopes granted to the client application in access_token.
-            var principal = new ClaimsPrincipal(identity);
-            principal.SetScopes(request.GetScopes().ToArray());
-            principal.SetResources(await _scopeManager.ListResourcesAsync(principal.GetScopes()).ToListAsync());
+            identity.SetScopes(request.GetScopes());
+            identity.SetResources(await _scopeManager.ListResourcesAsync(identity.GetScopes()).ToListAsync());
+            identity.SetDestinations(GetDestinations);
 
-            foreach (var claim in principal.Claims)
-            {
-                claim.SetDestinations(GetDestinations(claim));
-            }
-
-            return SignIn(principal, OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
+            return SignIn(new ClaimsPrincipal(identity), OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
         }
 
         if (request.IsAuthorizationCodeGrantType() ||
