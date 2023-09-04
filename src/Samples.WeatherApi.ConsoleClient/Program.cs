@@ -34,7 +34,7 @@ Console.WriteLine("\n\n");
 
 // call api
 var apiClient = DangerousHttpClientFactory.Create();
-apiClient.SetBearerToken(tokenResponse.AccessToken);
+apiClient.SetBearerToken(tokenResponse.AccessToken!);
 
 var response = await apiClient.GetAsync("https://localhost:7212/weatherforecast");
 if (!response.IsSuccessStatusCode)

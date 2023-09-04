@@ -2,7 +2,6 @@
 using IdentityModel.Client;
 using System;
 using System.Diagnostics;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Documents;
@@ -38,7 +37,7 @@ public partial class LoginWindow
 
         if (disco.IsError)
         {
-            CloseWithError(disco.Error);
+            CloseWithError(disco.Error!);
             return;
         }
 
@@ -54,7 +53,7 @@ public partial class LoginWindow
 
         if (_authorizationResponse.IsError)
         {
-            CloseWithError(_authorizationResponse.Error);
+            CloseWithError(_authorizationResponse.Error!);
             return;
         }
 
@@ -73,7 +72,7 @@ public partial class LoginWindow
         UserCodeLabel.Content = _authorizationResponse.UserCode;
 
         var qrCodeUrl = string.Format(
-            Constants.QrCodeUrlFormat, Uri.EscapeDataString(_authorizationResponse.VerificationUri));
+            Constants.QrCodeUrlFormat, Uri.EscapeDataString(_authorizationResponse.VerificationUri!));
         QrCodeImage.Source = new BitmapImage(new Uri(qrCodeUrl));
     }
 
@@ -87,7 +86,7 @@ public partial class LoginWindow
 
         if (disco.IsError)
         {
-            CloseWithError(disco.Error);
+            CloseWithError(disco.Error!);
             return;
         }
 
@@ -99,7 +98,7 @@ public partial class LoginWindow
             {
                 Address = disco.TokenEndpoint,
                 ClientId = Constants.ClientId,
-                DeviceCode = _authorizationResponse.DeviceCode
+                DeviceCode = _authorizationResponse.DeviceCode!
             });
 
             if (response.IsError)
@@ -110,13 +109,13 @@ public partial class LoginWindow
                 }
                 else
                 {
-                    CloseWithError(response.Error);
+                    CloseWithError(response.Error!);
                     return;
                 }
             }
             else
             {
-                AccessToken = response.AccessToken;
+                AccessToken = response.AccessToken!;
                 DialogResult = true;
                 Close();
                 return;

@@ -84,3 +84,7 @@ services:
       - "7215:443"
     volumes:
       - ~/.aspnet/https:/https:ro
+
+  auth-sample-react-client:
+    ports:
+      - "7216:7216"

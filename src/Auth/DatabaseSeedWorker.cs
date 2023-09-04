@@ -24,6 +24,7 @@ public class DatabaseSeedWorker : IHostedService
         var authAdminUrl = _configuration.GetServiceUri("auth-admin")!.ToString();
         var bffClientUrl = _configuration.GetServiceUri("javascriptbff-client")!.ToString();
         var mvcClientUrl = _configuration.GetServiceUri("mvc-client")!.ToString();
+        var reactClientUrl = _configuration.GetServiceUri("react-client")!.ToString();
 
         await using var scope = _serviceProvider.CreateAsyncScope();
 
@@ -176,6 +177,38 @@ public class DatabaseSeedWorker : IHostedService
                 PostLogoutRedirectUris =
                 {
                     new Uri($"{bffClientUrl}signout-callback-oidc")
+                },
+                Permissions =
+                {
+                    Permissions.Endpoints.Authorization,
+                    Permissions.Endpoints.Token,
+                    Permissions.GrantTypes.AuthorizationCode,
+                    Permissions.GrantTypes.RefreshToken,
+                    Permissions.ResponseTypes.Code,
+                    Scopes.OpenId,
+                    Scopes.OfflineAccess,
+                    Permissions.Scopes.Email,
+                    Permissions.Scopes.Profile,
+                    Permissions.Scopes.Roles,
+                    WeatherApiScope
+                }
+            }, cancellationToken);
+        }
+
+        clientId = "react-client";
+        if (await applicationManager.FindByClientIdAsync(clientId, cancellationToken) == null)
+        {
+            await applicationManager.CreateAsync(new OpenIddictApplicationDescriptor
+            {
+                ClientId = clientId,
+                DisplayName = "React client",
+                RedirectUris =
+                {
+                    new Uri($"{reactClientUrl}signin-oidc")
+                },
+                PostLogoutRedirectUris =
+                {
+                    new Uri($"{reactClientUrl}signout-callback-oidc")
                 },
                 Permissions =
                 {

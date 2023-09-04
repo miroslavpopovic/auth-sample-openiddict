@@ -42,7 +42,7 @@ namespace Samples.WeatherApi.MvcClient.Controllers
             };
 
             var client = new HttpClient(httpClientHandler);
-            client.SetBearerToken(accessToken.AccessToken);
+            client.SetBearerToken(accessToken.AccessToken!);
 
             var content = await client.GetStringAsync(_weatherForecastApiUrl);
 

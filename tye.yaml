@@ -59,6 +59,13 @@ services:
   - port: 7215
     protocol: https
 
+- name: react-client
+  dockerFile: src/Samples.WeatherApi.ReactClient/Dockerfile
+  bindings:
+  - port: 7216
+    containerPort: 7216
+    protocol: http
+
 - name: email
   image: mailhog/mailhog
   bindings:

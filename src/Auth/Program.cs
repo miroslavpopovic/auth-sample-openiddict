@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Auth.Data;
 using Auth.Email;
 using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.IdentityModel.Logging;
 using static OpenIddict.Abstractions.OpenIddictConstants;
 using Quartz;
 
@@ -11,6 +12,8 @@ if (builder.Environment.IsEnvironment("Docker"))
 {
     builder.Configuration.AddUserSecrets(typeof(DatabaseSeedWorker).Assembly);
 }
+
+IdentityModelEventSource.ShowPII = true;
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("auth-db");
@@ -33,7 +36,7 @@ builder.Services.AddRazorPages();
 // (like pruning orphaned authorizations/tokens from the database) at regular intervals.
 builder.Services.AddQuartz(options =>
 {
-    options.UseMicrosoftDependencyInjectionJobFactory();
+    //options.UseMicrosoftDependencyInjectionJobFactory();
     options.UseSimpleTypeLoader();
     options.UseInMemoryStore();
 });
@@ -118,7 +121,7 @@ builder.Services.AddAuthentication()
         options.ClientSecret = builder.Configuration["Providers:Google:ClientSecret"]!;
     });
 
-// CORS policy to allow SwaggerUI client
+// CORS policy to allow SwaggerUI and React clients
 builder.Services.AddCors(
     options =>
     {
@@ -128,7 +131,8 @@ builder.Services.AddCors(
                 policy
                     .WithOrigins(
                         builder.Configuration.GetServiceUri("weather-api")!.ToString().TrimEnd('/'),
-                        builder.Configuration.GetServiceUri("weather-summary-api")!.ToString().TrimEnd('/'))
+                        builder.Configuration.GetServiceUri("weather-summary-api")!.ToString().TrimEnd('/'),
+                        builder.Configuration.GetServiceUri("react-client")!.ToString().TrimEnd('/'))
                     .AllowAnyHeader()
                     .AllowAnyMethod();
             });

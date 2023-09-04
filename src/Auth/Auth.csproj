@@ -11,26 +11,26 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="MailKit" Version="3.6.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="7.0.3" />
-        <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="7.0.3" />
-        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.3" />
-        <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.3" />
-        <PackageReference Include="Microsoft.AspNetCore.Razor.Language" Version="6.0.14" />
-        <PackageReference Include="Microsoft.CodeAnalysis.Razor" Version="6.0.14" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.3" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.3">
+        <PackageReference Include="MailKit" Version="4.2.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="7.0.10" />
+        <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="7.0.10" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.10" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.10" />
+        <PackageReference Include="Microsoft.AspNetCore.Razor.Language" Version="6.0.21" />
+        <PackageReference Include="Microsoft.CodeAnalysis.Razor" Version="6.0.21" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.10" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.10">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
         <PackageReference Include="Microsoft.Tye.Extensions.Configuration" Version="0.10.0-alpha.21420.1" />
-        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
-        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.4" />
-        <PackageReference Include="OpenIddict.AspNetCore" Version="4.1.0" />
-        <PackageReference Include="OpenIddict.EntityFrameworkCore" Version="4.1.0" />
-        <PackageReference Include="OpenIddict.Quartz" Version="4.1.0" />
-        <PackageReference Include="Quartz.Extensions.Hosting" Version="3.6.2" />
+        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
+        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.9" />
+        <PackageReference Include="OpenIddict.AspNetCore" Version="4.7.0" />
+        <PackageReference Include="OpenIddict.EntityFrameworkCore" Version="4.7.0" />
+        <PackageReference Include="OpenIddict.Quartz" Version="4.7.0" />
+        <PackageReference Include="Quartz.Extensions.Hosting" Version="3.7.0" />
         <PackageReference Include="System.Collections.Immutable" Version="7.0.0" />
     </ItemGroup>
 
