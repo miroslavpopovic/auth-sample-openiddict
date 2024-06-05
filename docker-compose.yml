@@ -62,8 +62,8 @@ services:
   auth-sample-react-client:
     image: ${DOCKER_REGISTRY-}auth-sample-react-client
     build:
-      context: .
-      dockerfile: src/Samples.WeatherApi.ReactClient/Dockerfile
+      context: src/Samples.WeatherApi.ReactClient
+      dockerfile: Dockerfile
     networks:
       - overlay
 
